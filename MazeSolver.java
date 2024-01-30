@@ -1,4 +1,5 @@
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Deque;
 
 /**
  * MazeSolver attempts to recursively traverse a Maze. The goal is to get from the
