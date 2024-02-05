@@ -34,7 +34,6 @@ public class MazeSolver
   public boolean traverse()
   {
     boolean done = false;
-    int row, column;
     Position pos = new Position();
     Deque<Position> stack = new LinkedList<Position>();
     stack.push(pos);
@@ -47,10 +46,18 @@ public class MazeSolver
         done = true;  // the maze is solved
       else
       {
-        push_new_pos(pos.getx() - 1,pos.gety(), stack); 
-        push_new_pos(pos.getx() + 1,pos.gety(), stack);
-        push_new_pos(pos.getx(),pos.gety() - 1, stack);
-        push_new_pos(pos.getx(),pos.gety() + 1, stack); 
+        push_new_pos(pos.getx() - 1,pos.gety(), pos, stack); 
+        push_new_pos(pos.getx() + 1,pos.gety(), pos, stack);
+        push_new_pos(pos.getx(),pos.gety() - 1, pos, stack);
+        push_new_pos(pos.getx(),pos.gety() + 1, pos, stack); 
+      }
+    }
+
+    if(done){//solved
+      Position trav = pos;
+      while(trav != null){
+        maze.markPath(trav.getx(), trav.gety());
+        trav = trav.getParent();
       }
     }
     
@@ -64,14 +71,14 @@ public class MazeSolver
    * @param stack the working stack of moves within the grid
    * @return stack of moves within the grid
    */
-  private void push_new_pos(int x, int y, 
+  private void push_new_pos(int x, int y, Position parent,
                      Deque<Position> stack)
   {
     Position npos = new Position();
     npos.setx(x);
     npos.sety(y);
+    npos.setParent(parent);
     if (maze.validPosition(x,y))
       stack.push(npos);
   }
-  
 }

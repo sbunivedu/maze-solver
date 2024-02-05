@@ -8,6 +8,7 @@ public class Position
 {
   private int x; 
   private int y;
+  Position parent = null; 
 
   /**
    * Constructs a position and sets the x & y coordinates to 0,0.
@@ -52,5 +53,13 @@ public class Position
   public void sety(int a)
   {
     y = a;
+  }
+
+  public Position getParent(){
+    return parent;  
+  }
+
+  public void setParent(Position p){
+    parent = p;
   }
 }
